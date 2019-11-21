@@ -1,0 +1,29 @@
+#!/bin/bash
+# Standard output and error:
+#SBATCH -o ./examplejob.out
+#SBATCH -e ./examplejob.err
+#SBATCH -D ./
+#SBATCH --nodes=4
+#SBATCH --ntasks-per-node=32
+#SBATCH -J MgB2_DFPT
+#SBATCH --mail-type=none
+#SBATCH --partition=express
+#SBATCH --time=00:30:00
+
+module load impi
+module load octopus/9.1
+
+list="-0.008 -0.006 -0.004 -0.002 0.0 0.002 0.004 0.006 0.008"
+rm energies_small.txt
+touch energies_small.txt
+for dd in $list 
+do
+ sed_param=s/delta=.*/delta=${dd}/
+ sed -i "$sed_param" inp 
+ srun octopus > log
+ energy=`grep -a 'Total       =' static/info | head -1 | cut -d "=" -f 2` 
+ echo $dd $energy  >> energies_small.txt
+ mv static/geometry.xsf geometry-$dd
+done
+
+

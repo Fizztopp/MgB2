@@ -1,0 +1,78 @@
+# Calculation mode
+#------------------------------------------------------------------------------
+CalculationMode = td
+FromScratch = yes
+ExperimentalFeatures = yes
+
+KPointsUseSymmetries = no
+
+ParKpoints = auto
+ParDomains = no
+
+PseudopotentialSet=hgh_lda
+LCAOStart=lcao_states 
+
+ExtraStates = 2
+
+RestartFixedOccupations = yes
+
+# Structure
+#------------------------------------------------------------------------------
+PeriodicDimensions = 3
+Spacing = 0.30
+
+BoxShape = parallelepiped
+
+aCell = 3.0391*Angstrom
+cCell = 3.4866*Angstrom
+
+%LatticeParameters
+ aCell | aCell | cCell
+%
+
+%LatticeVectors
+ 0.5 | -sqrt(3)/2 | 0.
+ 0.5 |  sqrt(3)/2 | 0.
+ 0.  | 0.         | 1.
+%
+ 
+%ReducedCoordinates
+ 'B'  | 2/3 | 1/3  | 0.50
+ 'B'  | 1/3 | 2/3  | 0.50
+ 'Mg' | 0.0 | 0.0  | 0.00
+% 
+
+%KPointsGrid
+ 12 | 12 | 12
+%
+
+%RestartOptions 
+  restart_gs | "../restart" 
+% 
+
+# Time Propagation
+#------------------------------------------------------------------------------
+au2fs = 2.418884 * 1e-2
+T_propagation = 100   #fs
+T_step = 0.0075	      #fs
+
+TDPropagationTime = T_propagation / au2fs
+TDTimeStep = T_step / au2fs
+RestartWriteInterval = 100
+TDExponentialMethod = lanczos
+TDExpOrder = 16
+TDPropagator = aetrs
+
+# Initial Velocities
+#------------------------------------------------------------------------------
+vv = 1.0e-5
+%Velocities
+ 'B'  | 0.0  |  vv | 0.0
+ 'B'  | 0.0  | -vv | 0.0
+ 'Mg' | 0.0  | 0.0 | 0.0
+%
+
+# TD Output
+#------------------------------------------------------------------------------
+MoveIons = yes
+TdOutput = energy + geometry

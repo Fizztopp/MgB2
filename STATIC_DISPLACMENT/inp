@@ -1,0 +1,51 @@
+delta=0.008
+CalculationMode = gs
+FromScratch = yes
+ExperimentalFeatures = yes
+
+PeriodicDimensions = 3
+
+Spacing = 0.25
+
+BoxShape = parallelepiped
+
+aCell = 3.0391*Angstrom
+cCell = 3.4866*Angstrom
+
+%LatticeParameters
+ aCell | aCell | cCell
+%
+
+%LatticeVectors
+ 0.5 | -sqrt(3)/2 | 0.
+ 0.5 |  sqrt(3)/2 | 0.
+ 0.  | 0.         | 1.
+%
+
+%ReducedCoordinates
+ 'B'  | 2/3+delta | 1/3-delta  | 0.50
+ 'B'  | 1/3-delta | 2/3+delta  | 0.50
+ 'Mg' | 0.0 | 0.0  | 0.0
+% 
+
+PseudopotentialSet=hgh_lda
+LCAOStart=lcao_states 
+
+%KPointsGrid
+  12 | 12 | 12
+%
+KPointsUseSymmetries = yes
+
+ParDomains = no
+ParKPoints = auto
+
+ExtraStates = 2
+
+ConvRelDens = 1.e-7
+ConvForce = 1e-8
+
+SmearingFunction = fermi_dirac
+Smearing = 0.001*eV
+
+Output = geometry
+OutputFormat = xcrysden

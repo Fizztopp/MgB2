@@ -1,0 +1,19 @@
+#!/bin/bash
+# Standard output and error:
+#SBATCH -o ./examplejob.out
+#SBATCH -e ./examplejob.err
+#SBATCH -D ./
+#SBATCH --nodes=4
+#SBATCH --ntasks-per-node=32
+#SBATCH -J MgB2_TD
+#SBATCH --mail-type=NONE
+#SBATCH --partition=general
+#SBATCH --time=23:59:59
+
+module load impi
+module load octopus/9.1
+
+srun octopus > log
+
+ 
+ 
