@@ -33,7 +33,7 @@ LCAOStart=lcao_states
 %KPointsGrid
   12 | 12 | 12
 %
-KPointsUseSymmetries = yes
+KPointsUseSymmetries = no
 
 ParDomains = no
 ParKPoints = auto
